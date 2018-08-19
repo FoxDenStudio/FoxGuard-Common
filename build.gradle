@@ -1,0 +1,31 @@
+buildscript {
+    ext.kotlinVersion = '1.2.51'
+    repositories {
+        jcenter()
+        maven {
+            name = 'gradle-plugins'
+            url = 'https://plugins.gradle.org/m2'
+        }
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.4'
+    }
+}
+ext.foxcoreCommon = project(':FoxCore-Common')
+apply from: foxcoreCommon.file('gradle/config.gradle')
+
+apply plugin: 'java'
+
+group ext.foxGroup
+version '1.0.0'
+
+apply from: foxcoreCommon.file('gradle/fox.gradle')
+apply from: foxcoreCommon.file('gradle/publish.gradle')
+
+apply from: project.file('gradle/foxguard-common.gradle')
+
+dependencies{
+    compile foxcoreCommon
+
+}
